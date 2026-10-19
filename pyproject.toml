@@ -1,0 +1,17 @@
+[project]
+name = "rag-from-scratch-v1"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Ujjwal Dalmia", email = "ujjwal@gspdfinserve.com.au" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+rag-from-scratch-v1 = "rag_from_scratch_v1:main"
+
+[build-system]
+requires = ["uv_build>=0.12.21,<0.13.0"]
+build-backend = "uv_build"
