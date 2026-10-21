@@ -7,7 +7,9 @@ authors = [
     { name = "Ujjwal Dalmia", email = "ujjwal@gspdfinserve.com.au" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "pypdf[crypto]>=6.21.1",
+]
 
 [project.scripts]
 rag-from-scratch-v1 = "rag_from_scratch_v1:main"
