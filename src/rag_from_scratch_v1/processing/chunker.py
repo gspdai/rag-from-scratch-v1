@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from rag_from_scratch_v1.processing import Doc
+from .loader import Doc
 
 
 @dataclass(frozen=True)
