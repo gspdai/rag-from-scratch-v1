@@ -11,8 +11,8 @@ class Vector:
     embedding:tuple[float,...]
 
 class Vectorizer():
-    def __init__(self, key: str, model: str):
-        self.client = voyageai.Client(api_key = key)
+    def __init__(self, client: voyageai.Client, model: str):
+        self.client = client
         self.model = model
 
 

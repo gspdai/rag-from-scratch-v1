@@ -1,4 +1,5 @@
 import os
+import voyageai
 from dotenv import load_dotenv
 
 from rag_from_scratch_v1.processing import load_document, PageChunker, Vectorizer, VectorDB, Insert, Answerer
@@ -21,7 +22,8 @@ Please ensure all your answers are in minimum words possible.'''
 
 
 chunker = PageChunker()
-vectorizer = Vectorizer(key=embed_key, model="voyage-4-large")
+vec_client = voyageai.Client(api_key=embed_key)
+vectorizer = Vectorizer(client=vec_client, model="voyage-4-large")
 db = VectorDB(location="C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/store", 
               db_name="voyager_cosine",
               similarity="cosine")

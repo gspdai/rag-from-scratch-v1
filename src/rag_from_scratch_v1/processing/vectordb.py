@@ -19,6 +19,8 @@ class VectorDB():
                                                                metadata={"hnsw:space": similarity})
 
     def add_doc(self, doc_vecs:list[Vector]):
+        if len(doc_vecs) == 0:
+            return
         id = [doc_vec.chunk.id for doc_vec in doc_vecs]
         metadata = [{"source":doc_vec.chunk.doc, 
                      "source_hash":doc_vec.chunk.doc_hash,

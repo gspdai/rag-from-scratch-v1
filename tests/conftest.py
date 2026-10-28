@@ -1,6 +1,9 @@
+from dataclasses import dataclass
+
 import pytest
 from fpdf import FPDF
-from rag_from_scratch_v1.processing import Page, Doc
+
+from rag_from_scratch_v1.processing import Chunk, Doc, Page, Vector, VectorDB
 
 
 @pytest.fixture
@@ -30,3 +33,59 @@ def make_doc():
                   pages=tuple_pages)
         return doc
     return _make
+
+@pytest.fixture
+def make_vector():
+    def _make(embed: list[tuple], doc:Doc) -> list[Vector]:
+        list_vec = []
+        for i,page in enumerate(doc.pages):
+            id = doc.doc_name+":Page:"+str(page.number)
+            chunk = Chunk(id=id,
+                          chunker="Page",
+                          doc = doc.doc_name,
+                          doc_hash=doc.doc_hash,
+                          text = page.text,
+                          citation = (page.number,))
+            list_vec.append(Vector(chunk=chunk, embedding=embed[i]))
+        return list_vec
+    return _make
+
+@pytest.fixture
+def make_store(tmp_path):
+    db = VectorDB(location = str(tmp_path), db_name = "test")
+    return db
+
+@pytest.fixture
+def make_chunk():
+    def _make(doc):
+        list_chunk = []
+        for i,page in enumerate(doc.pages):
+            id = doc.doc_name+":Page:"+str(page.number)
+            list_chunk.append(Chunk(id=id,
+                            chunker="Page",
+                            doc = doc.doc_name,
+                            doc_hash=doc.doc_hash,
+                            text = page.text,
+                            citation = (page.number,)))
+        return list_chunk
+    return _make
+
+
+
+@dataclass
+class FakeEmbedResponse:
+    embeddings: list[list[float]]
+
+
+class FakeVoyageClient:
+    def __init__(self):
+        self.calls = []
+
+    def embed(self, texts: list[str], model: str, input_type: str) -> FakeEmbedResponse:
+        self.calls.append({"texts": texts, "model": model, "input_type": input_type})
+        embeddings = [[float(i), 1.0, 0.0] for i in range(len(texts))]
+        return FakeEmbedResponse(embeddings=embeddings)
+
+@pytest.fixture
+def fake_client():
+    return FakeVoyageClient()
