@@ -2,7 +2,12 @@ import os
 import voyageai
 from dotenv import load_dotenv
 
-from rag_from_scratch_v1.processing import load_document, PageChunker, Vectorizer, VectorDB, Insert, Answerer
+from .logging_setup import setup_log
+
+from rag_from_scratch_v1.processing import load_document, PageChunker, Vectorizer, VectorDB, Insert, Answerer, Query
+
+
+setup_log(log_file="C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/logs/app.log")
 
 load_dotenv()
 embed_key = os.getenv("EMBEDDING_KEY")
@@ -28,14 +33,11 @@ db = VectorDB(location="C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/store",
               db_name="voyager_cosine",
               similarity="cosine")
 llm = Answerer(key=llm_key, model_name="claude-opus-5-5", system_prompt=system_prompt)
+query = Query(vectorizer=vectorizer, db=db, llm=llm)
 
 # insert = Insert(chunker=chunker, vectorizer=vectorizer, vectordb=db)
 # status = insert.add_doc(file =file)
 
 question = "can you tell me about the cooling off period?"
-query_vec = vectorizer.query(text=question)
-top_matches = db.search(doc="Motor_Insurance_Comprehensive",query_embed=query_vec,top_k=2)
-response = llm.ask(query=question, top_matches=top_matches)
-for block in response.content:
-    if block.type == "text":
-        print(block.text)
+answer = query.ask(query=question,doc="Motor_Insurance_Comprehensive",top_k=2)
+print(answer)
