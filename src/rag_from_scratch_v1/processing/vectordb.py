@@ -1,3 +1,5 @@
+import mlflow
+
 from dataclasses import dataclass
 
 from chromadb import PersistentClient
@@ -44,6 +46,7 @@ class VectorDB():
         else:
             return vector_doc["metadatas"][0]["source_hash"]
 
+    @mlflow.trace
     def search(self, doc:str, query_embed:tuple[float,...] , top_k: int) -> list[TopMatch]:
         results = self.collection.query(query_embeddings=[list(query_embed)],
                                         n_results=top_k,

@@ -1,10 +1,13 @@
 from dataclasses import dataclass
 
+import mlflow
+
 import pytest
 from fpdf import FPDF
 
 from rag_from_scratch_v1.processing import Chunk, Doc, Page, Vector, VectorDB
 
+mlflow.tracing.disable()
 
 @pytest.fixture
 def make_pdf(tmp_path):
@@ -75,6 +78,7 @@ def make_chunk():
 @dataclass
 class FakeEmbedResponse:
     embeddings: list[list[float]]
+    total_tokens: int
 
 
 class FakeVoyageClient:
@@ -84,7 +88,8 @@ class FakeVoyageClient:
     def embed(self, texts: list[str], model: str, input_type: str) -> FakeEmbedResponse:
         self.calls.append({"texts": texts, "model": model, "input_type": input_type})
         embeddings = [[float(i), 1.0, 0.0] for i in range(len(texts))]
-        return FakeEmbedResponse(embeddings=embeddings)
+        total_tokens = 0
+        return FakeEmbedResponse(embeddings=embeddings, total_tokens = total_tokens)
 
 @pytest.fixture
 def fake_client():

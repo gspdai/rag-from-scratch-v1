@@ -1,13 +1,22 @@
+import mlflow
 import os
 import voyageai
 from dotenv import load_dotenv
 
 from .logging_setup import setup_log
 
+from .pricing import Price
+
 from rag_from_scratch_v1.processing import load_document, PageChunker, Vectorizer, VectorDB, Insert, Answerer, Query
 
 
 setup_log(log_file="C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/logs/app.log")
+
+mlflow.set_tracking_uri("sqlite:///C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/mlflow.db")
+mlflow.set_experiment("rag-from-scratch-v1")
+
+claude_price = Price(input_token_cost_per_million=4.0, output_token_cost_per_million=20.0)
+voyager_price = Price(input_token_cost_per_million=.12)
 
 load_dotenv()
 embed_key = os.getenv("EMBEDDING_KEY")
@@ -32,7 +41,7 @@ vectorizer = Vectorizer(client=vec_client, model="voyage-4-large")
 db = VectorDB(location="C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/store", 
               db_name="voyager_cosine",
               similarity="cosine")
-llm = Answerer(key=llm_key, model_name="claude-opus-5-5", system_prompt=system_prompt)
+llm = Answerer(key=llm_key, model_name="claude-opus-5-5", system_prompt=system_prompt, price=claude_price)
 query = Query(vectorizer=vectorizer, db=db, llm=llm)
 
 # insert = Insert(chunker=chunker, vectorizer=vectorizer, vectordb=db)

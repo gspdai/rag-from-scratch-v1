@@ -1,9 +1,10 @@
 from rag_from_scratch_v1.processing import Vectorizer,Chunk
+from rag_from_scratch_v1.pricing import Price
 
-
+fake_price = Price(input_token_cost_per_million=0.0)
 def test_doc_sends_input_type_document_query_sends_query(make_doc, make_chunk, fake_client):
     client = fake_client
-    vectorizer = Vectorizer(client=client, model="fake")
+    vectorizer = Vectorizer(client=client, model="fake", price=fake_price)
     text = ["test 1", "test 2"]
     doc = make_doc(text)
     list_chunk = make_chunk(doc)
@@ -24,7 +25,7 @@ def test_doc_returns_one_vector_per_chunk(make_doc, make_chunk, fake_client):
 
 def test_each_hunk_paired_with_embedding(make_doc, make_chunk, fake_client):
     client = fake_client
-    vectorizer = Vectorizer(client=client, model="fake")
+    vectorizer = Vectorizer(client=client, model="fake", price=fake_price)
     text = ["test 1", "test 2"]
     doc = make_doc(text)
     list_chunk = make_chunk(doc)
@@ -34,7 +35,7 @@ def test_each_hunk_paired_with_embedding(make_doc, make_chunk, fake_client):
 
 def test_embeddings_are_tuples(make_doc, make_chunk, fake_client):
     client = fake_client
-    vectorizer = Vectorizer(client=client, model="fake")
+    vectorizer = Vectorizer(client=client, model="fake", price=fake_price)
     text = ["test 1", "test 2"]
     doc = make_doc(text)
     list_chunk = make_chunk(doc)

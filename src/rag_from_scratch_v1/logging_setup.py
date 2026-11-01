@@ -11,5 +11,5 @@ def setup_log(level: str = "INFO", log_file:str|None = None):
 
     logging.basicConfig(level=level, format=LOG_FORMAT, handlers=handler, force=True)
 
-    for noisy in ("chromadb", "httpx", "httpcore", "urllib3", "httpx2"):
+    for noisy in ("chromadb", "httpx", "httpcore", "urllib3", "httpx2", "mlflow"):
         logging.getLogger(noisy).setLevel(logging.WARNING)
