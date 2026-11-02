@@ -1,0 +1,92 @@
+[
+  {
+    "question": "How long is the cooling off period?",
+    "expected_answer": "The cooling off period for this product is 30 days.",
+    "expected_pages": [5],
+    "question_category": "simple"
+  },
+  {
+    "question": "How are the refunds made if policy is cancelled in cooling off period?",
+    "expected_answer": "Unless you have made a claim or exercised any right under the policy, cancelling within the cooling-off period gives a full refund of premiums paid, less non-refundable government charges, taxes and levies.",
+    "expected_pages": [5],
+    "question_category": "simple"
+  },
+  {
+    "question": "What is an Excess and how does it apply to my policy?",
+    "expected_answer": "An excess is the first amount of each claim that you or the claimant must pay. Several excesses can apply (basic, undeclared young driver, undeclared inexperienced driver, undeclared driver history); the amounts are on your policy schedule or in the PDS.",
+    "expected_pages": [13, 64],
+    "question_category": "multi_page"
+  },
+  {
+    "question": "What is the most you will pay for emergency repairs under Comprehensive Plus cover?",
+    "expected_answer": "Up to $1,000 per claim for Comprehensive Plus ($500 for Comprehensive), unless approval is given before the emergency repairs are completed.",
+    "expected_pages": [46],
+    "question_category": "simple"
+  },
+  {
+    "question": "How many days of hire car does the Hire car extension optional cover give me?",
+    "expected_answer": "A maximum of 14 days, from when the vehicle is left at the repairer until repairs are completed or the claim is settled as a total loss.",
+    "expected_pages": [55],
+    "question_category": "simple"
+  },
+  {
+    "question": "How much of my premium is refunded if I cancel inside versus outside the cooling-off period?",
+    "expected_answer": "Inside the 30-day cooling-off period: a full refund less non-refundable government charges, unless a claim was made or a right exercised. Outside it: a proportional refund for the unexpired period, less non-refundable charges. Any agency fee is only refunded if cancelled within the cooling-off period or from the start of the period of insurance.",
+    "expected_pages": [5, 58],
+    "question_category": "multi_page"
+  },
+  {
+    "question": "What is the difference between New-for-old replacement and Lifetime new-for-old replacement after a total loss?",
+    "expected_answer": "New-for-old (Comprehensive and Comprehensive Plus) needs the vehicle bought new, under 3 years since first registration and under 70,000km. Lifetime new-for-old (Comprehensive Plus only) has no time or km limit but needs the vehicle bought new and continuously insured with BZI Comprehensive Plus from within 3 months of purchase. Both need finance company consent and include 12 months registration, CTP and dealer delivery.",
+    "expected_pages": [36, 37],
+    "question_category": "multi_page"
+  },
+  {
+    "question": "Which excesses can apply to a claim, and when does the undeclared young driver excess apply?",
+    "expected_answer": "Basic, undeclared young driver, undeclared inexperienced driver and undeclared driver history excesses. The undeclared young driver excess applies when the driver is under 25 and not named on the policy schedule, and is payable on top of the basic excess.",
+    "expected_pages": [13, 14],
+    "question_category": "multi_page"
+  },
+  {
+    "question": "How is my vehicle's value worked out under agreed value versus market value?",
+    "expected_answer": "Agreed value is the vehicle sum insured on the policy schedule plus insured non-standard accessories or modifications. Market value is assessed at claim time using the vehicle's condition and age, specified accessories, local market prices and valuation guides; it includes registration and CTP but not stamp duty, dealer warranty or transfer fees.",
+    "expected_pages": [11, 64],
+    "question_category": "multi_page"
+  },
+  {
+    "question": "Can I choose my own repairer, and what happens if you don't agree with my repairer's quote?",
+    "expected_answer": "Only if the 'Choice of repairer' option is on your policy; otherwise a preferred repairer is used. If you choose your own repairer, the insurer may authorise and manage the repairs or instead pay the reasonable cost of repairs, for example if it disagrees with the quote or repair method. If it pays the reasonable cost, you organise the repairs and pay the excess.",
+    "expected_pages": [16, 18],
+    "question_category": "multi_page"
+  },
+  {
+    "question": "Does this policy include home and contents insurance?",
+    "expected_answer": "The document doesn't contain enough information about your question.",
+    "expected_pages": [],
+    "question_category": "not_in_document"
+  },
+  {
+    "question": "What will my premium be for a 2022 Toyota Corolla?",
+    "expected_answer": "The document doesn't contain enough information about your question.",
+    "expected_pages": [],
+    "question_category": "not_in_document"
+  },
+  {
+    "question": "What is the dollar amount of my basic excess?",
+    "expected_answer": "The document doesn't contain enough information about your question.",
+    "expected_pages": [],
+    "question_category": "not_in_document"
+  },
+  {
+    "question": "Does this policy cover me for travel insurance on overseas trips?",
+    "expected_answer": "The document doesn't contain enough information about your question.",
+    "expected_pages": [],
+    "question_category": "not_in_document"
+  },
+  {
+    "question": "Who is the CEO of Blue Zebra Insurance?",
+    "expected_answer": "The document doesn't contain enough information about your question.",
+    "expected_pages": [],
+    "question_category": "not_in_document"
+  }
+]
