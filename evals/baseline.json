@@ -1,0 +1,26 @@
+{
+  "simple": {
+    "precision": 0.5,
+    "recall": 1.0,
+    "instances": 4,
+    "faithfulness": 0.75,
+    "relevance": 1.0,
+    "correctness": 0.75
+  },
+  "multi_page": {
+    "precision": 0.9166666666666666,
+    "recall": 0.9166666666666666,
+    "instances": 6,
+    "faithfulness": 1.0,
+    "relevance": 1.0,
+    "correctness": 0.8333333333333334
+  },
+  "not_in_document": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "instances": 5,
+    "faithfulness": 1.0,
+    "relevance": 1.0,
+    "correctness": 0.4
+  }
+}

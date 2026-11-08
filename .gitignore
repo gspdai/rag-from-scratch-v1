@@ -16,4 +16,5 @@ cache/
 data/
 store/
 mlruns/
+evals/results/
 mlflow.db
