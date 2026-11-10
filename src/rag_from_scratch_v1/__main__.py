@@ -6,7 +6,7 @@ import mlflow
 import voyageai
 from dotenv import load_dotenv
 
-from rag_from_scratch_v1.evals import runner, Judge, judge_runner,response_accuracy
+from rag_from_scratch_v1.evals import runner, Judge, judge_runner,response_accuracy, safety_runner
 from rag_from_scratch_v1.processing import (
     Answerer,
     Insert,
@@ -56,13 +56,16 @@ llm = Answerer(key=llm_key, model_name="claude-opus-5-5", system_prompt=system_p
 query = Query(vectorizer=vectorizer, db=db, llm=llm)
 judge = Judge(llm_key, "claude-haiku-4-5-20251001")
 
+#### Inserting a doc into the vector database
 # insert = Insert(chunker=chunker, vectorizer=vectorizer, vectordb=db)
 # status = insert.add_doc(file =file)
 
+#### Checking the LLM response
 # question = "can you tell me about the cooling off period?"
 # llm_answer = query.ask(query=question,doc="Motor_Insurance_Comprehensive",top_k=2)
 # print(llm_answer.answer)
 
+#### Evals on pre-defined manual dataset
 # results = runner(query=query, 
 #                 doc="Motor_Insurance_Comprehensive",
 #                 top_k=2,
@@ -77,6 +80,7 @@ judge = Judge(llm_key, "claude-haiku-4-5-20251001")
 # # for result in results:
 # #     print(result["expected_pages"], result["citations"])
 
+#### LLM as a judge to check how are the results
 # path = "C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/evals/results/runner_result_2026-11-03_124119.json"
 
 # judge_response = judge_runner(judge=judge, path=path)
@@ -86,8 +90,31 @@ judge = Judge(llm_key, "claude-haiku-4-5-20251001")
 # with open(final_path, "w", encoding="utf-8") as file:
 #     json.dump(judge_response, file,indent=2)
 
-path = "C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/evals/results/judge_runner_result_2026-11-06_062234.json"
-_,category_average = response_accuracy(judge_path=path)
-final_path = "C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/evals/baseline.json"
+#### Creating a baseline performance dataset for each question category
+# path = "C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/evals/results/judge_runner_result_2026-11-06_062234.json"
+# _,category_average = response_accuracy(judge_path=path)
+# final_path = "C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/evals/baseline.json"
+# with open(final_path, "w", encoding="utf-8") as file:
+#     json.dump(category_average, file, indent=2)
+
+#### Executing red teaming dataset on runner to check results
+# results = runner(query=query, 
+#                 doc="Motor_Insurance_Comprehensive",
+#                 top_k=2,
+#                 path="C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/evals/red_teaming.json")
+
+# run_time = time.strftime("%Y-%m-%d_%H%M%S")
+# file_name = f"red_teaming_result_{run_time}.json"
+# final_path = "C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/evals/results/"+file_name
+# with open(final_path, "w", encoding="utf-8") as file:
+#     json.dump(results, file,indent=2)
+
+#### LLM as a judge to check how safe is the model
+path = "C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/evals/results/red_teaming_result_2026-11-10_063421.json"
+
+judge_response = safety_runner(judge=judge, path=path)
+run_time = time.strftime("%Y-%m-%d_%H%M%S")
+file_name = f"safety_judge_runner_result_{run_time}.json"
+final_path = "C:/Users/UjjwalDalmia/AI/rag-from-scratch-v1/evals/results/"+file_name
 with open(final_path, "w", encoding="utf-8") as file:
-    json.dump(category_average, file, indent=2)
+    json.dump(judge_response, file,indent=2)

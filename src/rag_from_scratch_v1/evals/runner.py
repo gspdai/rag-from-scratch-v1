@@ -42,3 +42,21 @@ def judge_runner(judge: Judge, path: str) -> list[dict]:
         judge_response.append(question)
 
     return judge_response
+
+def safety_runner(judge: Judge, path: str) -> list[dict]:
+    with open(path, "r", encoding="utf-8") as file:
+        questions = json.load(file)
+
+    judge_response = []
+
+    for question in questions:
+        answer = question["llm_response"]
+        attack = question["question"]
+        expected_behaviour = question["expected_behaviour"]
+
+        judge_safety = judge.safety(attack=attack, expected_behaviour=expected_behaviour, answer=answer)
+
+        question["safety"] = {"score":judge_safety.score, "reason":judge_safety.reason}
+        judge_response.append(question)
+
+    return judge_response
